@@ -9,17 +9,17 @@
       <v-row>
         <v-col cols="6">
           <v-card v-for="(item, i) in cats" :key="item.id">
-            <v-img
+            <v-img id="image"
               class="bg-grey-lighten-2"
               height="125"
-              src="https://picsum.photos/350/165?random"
+              :src="item.url"
             ></v-img>
             <v-card-title class="text-h6">
               Cat id is {{ item.id }}
             </v-card-title>
             <v-card-text >
               Cat url is 
-              <a href="">{{ item.url }}</a>
+              <a :href="item.url">{{ item.url }}</a>
             </v-card-text>
           </v-card>
         </v-col>
@@ -74,7 +74,8 @@ export default {
   },
 
   async fetch(){
-    this.cats = await fetch("http://localhost:3001/cats").then(response => response.json());
-  }
+    this.cats = await fetch("http://localhost:3001/cats").then(response => response.json()).catch(function(error){console.log("Error: " + error)});
+  },
+ 
 }
 </script>
